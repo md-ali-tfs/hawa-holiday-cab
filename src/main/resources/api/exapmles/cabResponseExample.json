@@ -1,0 +1,21 @@
+[{
+  "source": "IGI Airport",
+  "destination": "Noida",
+  "cabType": "mini",
+  "price": 200,
+  "expectedTimeToReachSource":  "10 min"
+},
+{
+  "source": "IGI Airport",
+  "destination": "Noida",
+  "cabType": "Prime",
+  "price": 300,
+  "expectedTimeToReachSource":  "7 min"
+},
+{
+  "source": "IGI Airport",
+  "destination": "Noida",
+  "cabType": "Auto",
+  "price": 100,
+  "expectedTimeToReachSource":  "5 min"
+}]

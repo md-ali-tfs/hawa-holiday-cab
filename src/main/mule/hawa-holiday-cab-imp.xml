@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="hawa-holiday-cab-impFlow" doc:id="d4148742-2b8a-4b03-9e68-235dcc254f02" >
+		<logger level="INFO" doc:name="Start_Logger" doc:id="ca070f9b-b52c-4551-bf70-872932dd7c62" message="Start flow"/>
+		<ee:transform doc:name="Cab_Response" doc:id="d90e91f6-0ecd-45e5-b602-14ff73927192" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+[
+    {
+        "source": "IGI Airport",
+        "destination": "Noida",
+        "cabType": "mini",
+        "price": 200,
+        "expectedTimeToReachSource": "10 min"
+    },
+    {
+        "source": "IGI Airport",
+        "destination": "Noida",
+        "cabType": "Prime",
+        "price": 300,
+        "expectedTimeToReachSource": "7 min"
+    },
+    {
+        "source": "IGI Airport",
+        "destination": "Noida",
+        "cabType": "Auto",
+        "price": 100,
+        "expectedTimeToReachSource": "5 min"
+    }
+]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Transform Message" doc:id="7243106f-fd0b-4be5-b57f-586bc04d5c84" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+if (vars.source != null and vars.destination != null and vars.cabType != null) payload filter ((item, index) -> item.source == vars.source and item.destination == vars.destination and item.cabType == vars.cabType)
+else payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End_Logger" doc:id="74f2e4f7-1899-4b32-a615-cdb15d3b3ab4" message="End flow"/>
+	</flow>
+</mule>
